@@ -15,6 +15,7 @@ async function getPayPalAccessToken() {
   const auth = Buffer.from(PAYPAL_CLIENT_ID + ':' + PAYPAL_APP_SECRET).toString(
     'base64'
   );
+  console.log('varen');
 
   const url = `${PAYPAL_API_URL}/v1/oauth2/token`;
 

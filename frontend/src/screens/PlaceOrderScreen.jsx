@@ -26,6 +26,44 @@ const PlaceOrderScreen = () => {
 
   const dispatch = useDispatch();
   const placeOrderHandler = async () => {
+
+
+    console.log(cart.totalPrice);
+    //
+    var options = {
+      key: "rzp_test_Ogkw1kAXpEv091",
+      key_secret:"nGcPOGi4AjhRMcs0VR3WTNvV",
+      amount: cart.totalPrice *1000,
+      currency:"INR",
+      name:"STARTUP_PROJECTS",
+      description:"for testing purpose",
+      handler: function(response){
+        alert(response.razorpay_payment_id);
+      },
+      prefill: {
+        name:"Velmurugan",
+        email:"mvel1620r@gmail.com",
+        contact:"7904425033"
+      },
+      notes:{
+        address:"Razorpay Corporate office"
+      },
+      theme: {
+        color:"#3399cc"
+      }
+    };
+    var pay = new window.Razorpay(options);
+    pay.open();
+
+
+
+
+
+
+
+    
+
+
     try {
       const res = await createOrder({
         orderItems: cart.cartItems,
@@ -41,7 +79,19 @@ const PlaceOrderScreen = () => {
     } catch (err) {
       toast.error(err);
     }
+
   };
+  useEffect(() => {
+    const razorpayScript = document.createElement('script');
+    razorpayScript.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    razorpayScript.onload = placeOrderHandler;
+
+    document.body.appendChild(razorpayScript);
+
+    return () => {
+      document.body.removeChild(razorpayScript);
+    };
+  }, [placeOrderHandler]);
 
   return (
     <>
