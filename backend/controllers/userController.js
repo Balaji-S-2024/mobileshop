@@ -91,6 +91,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // @access  Private
 const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
+  console.log('illa inga than varrenn');
 
   if (user) {
     user.name = req.body.name || user.name;

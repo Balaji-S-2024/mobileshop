@@ -127,12 +127,13 @@ const OrderScreen = () => {
                 {order.shippingAddress.country}
               </p>
               {order.isDelivered ? (
+                <Message variant='danger'>Not Delivered</Message>
+              ) : (
                 <Message variant='success'>
                   Delivered on {order.deliveredAt}
                 </Message>
-              ) : (
-                <Message variant='danger'>Not Delivered</Message>
-              )}
+              )
+              }
             </ListGroup.Item>
 
             <ListGroup.Item>

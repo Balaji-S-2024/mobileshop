@@ -1,9 +1,14 @@
 import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button } from 'react-bootstrap';
-import { FaTimes } from 'react-icons/fa';
+import { FaTimes, FaCheck } from 'react-icons/fa';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
+import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa';
 import { useGetOrdersQuery } from '../../slices/ordersApiSlice';
+import {
+  useDeliverOrderMutation,
+  useGetOrderDetailsQuery,
+} from './../../slices/ordersApiSlice'
 
 const OrderListScreen = () => {
   const { data: orders, isLoading, error } = useGetOrdersQuery();
@@ -38,11 +43,12 @@ const OrderListScreen = () => {
                 <td>{order.createdAt.substring(0, 10)}</td>
                 <td>${order.totalPrice}</td>
                 <td>
-                  {order.isPaid ? (
+                  {/* {order.isPaid ? (
                     order.paidAt.substring(0, 10)
                   ) : (
                     <FaTimes style={{ color: 'red' }} />
-                  )}
+                  )} */}
+                  <FaCheck style={{ color: 'green' }} />
                 </td>
                 <td>
                   {order.isDelivered ? (
@@ -52,12 +58,12 @@ const OrderListScreen = () => {
                   )}
                 </td>
                 <td>
-                  <LinkContainer to={`/order/${order._id}`}>
-                    <Button variant='light' className='btn-sm'>
-                      Details
-                    </Button>
-                  </LinkContainer>
-                </td>
+                    <LinkContainer to={`/admin/order/${order._id}/edit`}>
+                      <Button variant='light' className='btn-sm mx-2'>
+                        <FaEdit />
+                      </Button>
+                    </LinkContainer>
+                  </td>
               </tr>
             ))}
           </tbody>
